@@ -9,15 +9,15 @@ The Payments & FinTech API is a mission-critical, high-performance Java Spring B
 
 ```mermaid
 graph LR
-    User[Mobile App / Web Client] -->|REST / JSON| Controller[Spring REST Controllers]
+    User[Mobile App / Web Client] -->|REST JSON| Controller[Spring REST Controllers]
     Controller -->|DTO Validation| Service[Transaction Business Service]
-    Service -->|@Transactional Boundaries| JPA[Spring Data JPA Layer]
-    
-    subgraph Database Concurrency Control
+    Service -->|Transactional Boundaries| JPA[Spring Data JPA Layer]
+
+    subgraph "Database Concurrency Control"
         JPA -->|PESSIMISTIC_WRITE Lock| DB[(PostgreSQL Database)]
         DB -.->|Row Locked| DB
     end
-    
+
     Service -.->|Simulated HTTP Callback| PaymentGateway[External Payment Gateway Integration]
 ```
 
